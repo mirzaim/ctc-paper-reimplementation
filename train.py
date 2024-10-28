@@ -1,3 +1,5 @@
+from pathlib import Path
+
 import torch
 import torch.nn as nn
 import torch.optim as optim
@@ -47,6 +49,7 @@ def main():
         "cuda") if torch.cuda.is_available() else torch.device("cpu")
 
     # Load data
+    Path('data/LibriSpeech').mkdir(parents=True, exist_ok=True)
     features, labels = load_librispeech("data/LibriSpeech", max_samples=10000)
     vocab = sorted(set(c for label in labels for c in label))
     char_to_idx = {char: idx + 1 for idx, char in enumerate(vocab)}
